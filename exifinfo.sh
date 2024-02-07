@@ -29,42 +29,39 @@ then
 elif [ $1="-i" ]
 then
     shift
-    for i in $*
-    do
-        case $i in 
-            "rx")
-                echo $(exif $filename | grep "^R'esolution X" | cut -d "|" -f2)
-                ;;
-            "ry")
-                echo $(exif $filename | grep "^R'esolution Y" | cut -d "|" -f2)
-                ;;
-            "runit")
-                echo $(exif $filename | grep "^Unit" | cut -d "|" -f2)
-                ;;
-            "date")
-                echo $(exif $filename | grep "^Date et heure " | cut -d "|" -f2)
-                ;;
-            "largeur")
-                echo $(exif $filename | grep "^Largeur" | cut -d "|" -f2)
-                ;;
-            "longueur")
-                echo $(exif $filename | grep "^Longueur" | cut -d "|" -f2)
-                ;;
-            "compression")
-                echo $(exif $filename | grep "^Compression" | cut -d "|" -f2)
-                ;;
-            "echantillon")
-                echo $(exif $filename | grep "^'Echantillons" | cut -d "|" -f2)
-                ;;
-            "desc")
-                echo $(exif $filename | grep "^Description" | cut -d "|" -f2)
-                ;;
-            *)
-                echo "le $i paramètre n'existe pas"
-                exif 2
-                ;;
-        esac
-    done
+    case $1 in 
+        "rx")
+            echo $(exif $filename | grep "^R'esolution X" | tail -1 | cut -d "|" -f2)
+            ;;
+        "ry")
+            echo $(exif $filename | grep "^R'esolution Y" | tail -1 | cut -d "|" -f2)
+            ;;
+        "runit")
+            echo $(exif $filename | grep "^Unit" | tail -1 | cut -d "|" -f2)
+            ;;
+        "date")
+            echo $(exif $filename | grep "^Date et heure " | tail -1 | cut -d "|" -f2)
+            ;;
+        "largeur")
+            echo $(exif $filename | grep "^Largeur" | tail -1 | cut -d "|" -f2)
+            ;;
+        "longueur")
+            echo $(exif $filename | grep "^Longueur" | tail -1 | cut -d "|" -f2)
+            ;;
+        "compression")
+            echo $(exif $filename | grep "^Compression" | tail -1 | cut -d "|" -f2)
+            ;;
+        "echantillon")
+            echo $(exif $filename | grep "^'Echantillons" | tail -1 | cut -d "|" -f2)
+            ;;
+        "desc")
+            echo $(exif $filename | grep "^Description" | tail -1 | cut -d "|" -f2)
+            ;;
+        *)
+            echo "le $i paramètre n'existe pas"
+            exif 2
+            ;;
+    esac
 else 
     echo "ce paramètre n'existe pas"
     exit 3;
