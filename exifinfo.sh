@@ -14,7 +14,10 @@ then
     i=5
     while [ $i -lt 25 ]
     do
-        echo $(exif $filename | sed "${i}q;d" | cut -d "|" -f2)
+        if [ ${i::1}!="-" ]
+        then
+            echo $(exif $filename | sed "${i}q;d" | cut -d "|" -f2)
+        fi
         let  i++
         if [ $i -eq 16 ]
         then
