@@ -15,7 +15,6 @@ DROP TABLE IF EXISTS systeme_solaire;
 CREATE TABLE IF NOT EXISTS systeme_solaire(
     id SERIAL,
     nom VARCHAR(255) NOT NULL,
-    galaxie_id BIGINT CHECK (galaxie_id > 0),
     PRIMARY KEY(id)
 ) ;
 
@@ -60,12 +59,9 @@ CREATE TABLE IF NOT EXISTS image(
     unite_res_id BIGINT CHECK (unite_res_id > 0) NOT NULL,
     type_compression_id BIGINT CHECK (type_compression_id > 0),
     systeme_solaire_id BIGINT CHECK (systeme_solaire_id > 0),
-    galaxie_id  BIGINT CHECK (galaxie_id > 0),
+    galaxie_id  BIGINT CHECK (galaxie_id > 0) NOT NULL,
     PRIMARY KEY(id)
 ) ;
-
-
-ALTER TABLE systeme_solaire ADD CONSTRAINT fk_systeme_solaire_galaxie_id FOREIGN KEY(galaxie_id) REFERENCES galaxie (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE image ADD CONSTRAINT fk_image_categorie_id FOREIGN KEY(categorie_id) REFERENCES categorie (id) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE image ADD CONSTRAINT fk_image_unite_res_id FOREIGN KEY(unite_res_id) REFERENCES unite_res (id) ON DELETE CASCADE ON UPDATE CASCADE;
