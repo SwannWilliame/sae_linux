@@ -6,4 +6,4 @@ then
     exit 1;
 fi
 
-su -c "psql -d sae_database -c \"$*\"" postgres
+su -c "psql -d sae_database -c \"$*\"" postgres > log.txt
