@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS sae_database;
 CREATE DATABASE sae_database;
 
-\c sae_database;
+USE sae_database;
 
 DROP TABLE IF EXISTS galaxie;
 CREATE TABLE IF NOT EXISTS galaxie(
@@ -46,10 +46,10 @@ DROP TABLE IF EXISTS image;
 CREATE TABLE IF NOT EXISTS image(
     id SERIAL,
     nom VARCHAR(255) NOT NULL,
-    description_image TEXT,
+    description_image LONGTEXT,
     res_x INT NOT NULL,
     res_y INT NOT NULL,
-    date_creation TIMESTAMP(0),
+    date_creation DATETIME(0),
     largeur INT,
     longueur INT,
     echantillon_par_pixel INT,
