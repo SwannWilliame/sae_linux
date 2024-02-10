@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS sae_database;
-CREATE DATABASE sae_database;
+CREATE DATABASE IF NOT EXISTS sae_database CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
 
 USE sae_database;
 
@@ -8,14 +8,14 @@ CREATE TABLE IF NOT EXISTS galaxie(
     id SERIAL,
     nom VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
-) ;
+) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
 
 DROP TABLE IF EXISTS constellation;
 CREATE TABLE IF NOT EXISTS constellation(
     id SERIAL,
     nom VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
-) ;
+) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
 
 
 DROP TABLE IF EXISTS type_compression;
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS type_compression(
     id SERIAL,
     nom VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
-) ;
+) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
 
 
 DROP TABLE IF EXISTS unite_res;
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS unite_res(
     id SERIAL,
     nom VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
-) ;
+) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
 
 
 DROP TABLE IF EXISTS categorie;
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS categorie(
     id SERIAL,
     nom VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
-) ;
+) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
 
 
 DROP TABLE IF EXISTS image;
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS image(
     constellation_id BIGINT CHECK (constellation_id > 0),
     galaxie_id  BIGINT CHECK (galaxie_id > 0) NOT NULL,
     PRIMARY KEY(id)
-) ;
+) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
 
 ALTER TABLE image ADD CONSTRAINT fk_image_categorie_id FOREIGN KEY(categorie_id) REFERENCES categorie (id) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE image ADD CONSTRAINT fk_image_unite_res_id FOREIGN KEY(unite_res_id) REFERENCES unite_res (id) ON DELETE CASCADE ON UPDATE CASCADE;
