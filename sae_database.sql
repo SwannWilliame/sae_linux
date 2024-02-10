@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS image(
     largeur INT,
     longueur INT,
     echantillon_par_pixel INT,
-    image_data BYTEA NOT NULL,
+    image_data LONGBLOB NOT NULL,
     categorie_id BIGINT CHECK (categorie_id > 0) NOT NULL,
     unite_res_id BIGINT CHECK (unite_res_id > 0) NOT NULL,
     type_compression_id BIGINT CHECK (type_compression_id > 0),
