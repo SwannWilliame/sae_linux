@@ -54,11 +54,11 @@ CREATE TABLE IF NOT EXISTS image(
     longueur INT,
     echantillon_par_pixel INT,
     image_data LONGBLOB NOT NULL,
-    categorie_id BIGINT CHECK (categorie_id > 0) NOT NULL,
-    unite_res_id BIGINT CHECK (unite_res_id > 0) NOT NULL,
-    type_compression_id BIGINT CHECK (type_compression_id > 0),
-    constellation_id BIGINT CHECK (constellation_id > 0),
-    galaxie_id  BIGINT CHECK (galaxie_id > 0) NOT NULL,
+    categorie_id BIGINT UNSIGNED NOT NULL,
+    unite_res_id BIGINT UNSIGNED NOT NULL,
+    type_compression_id BIGINT UNSIGNED,
+    constellation_id BIGINT UNSIGNED,
+    galaxie_id  BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY(id)
 ) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
 
