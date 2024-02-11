@@ -11,51 +11,84 @@ shift
 
 if [ $# -eq 0 ]
 then
-    i=5
-    while [ $i -lt 25 ]
-    do
-        if [ ${i::1}!="-" ]
-        then
-            echo $(exif $filename | sed "${i}q;d" | cut -d "|" -f2 | tr -d ' ')
-        fi
-        let  i++
-        if [ $i -eq 16 ]
-        then
-            let  i++
-            let  i++
-            let  i++
-        fi
-    done
+	echo $(exif $filename | grep '^Résolution X' | tail -1 | cut -d "|" -f2 | tr -d ' ')    
+	echo $(exif $filename | grep '^Résolution Y' | tail -1 | cut -d "|" -f2 | tr -d ' ')
+	echo $(exif $filename | grep '^Unit' | tail -1 | cut -d "|" -f2 | tr -d ' ')
+	echo $(exif $filename | grep '^Date et heure ' | tail -1 | cut -d "|" -f2 | tr -d ' ')
+	echo $(exif $filename | grep '^Largeur' | tail -1 | cut -d "|" -f2 | tr -d ' ')
+	echo $(exif $filename | grep '^Longueur' | tail -1 | cut -d "|" -f2 | tr -d ' ')
+	echo $(exif $filename | grep '^Compression' | tail -1 | cut -d "|" -f2 | tr -d ' ')
+	echo $(exif $filename | grep '^Échantillons' | tail -1 | cut -d "|" -f2 | tr -d ' ')
+	echo $(exif $filename | grep '^Description' | tail -1 | cut -d "|" -f2 | tr -d ' ')
 elif [ $1="-i" ]
 then
     shift
     case $1 in 
         "rx")
-            echo $(exif $filename | grep "^R'esolution X" | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            result=$(exif $filename | grep '^Résolution X' | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            echo $result
             ;;
         "ry")
-            echo $(exif $filename | grep "^R'esolution Y" | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            result=$(exif $filename | grep '^Résolution Y' | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            echo $result
             ;;
         "runit")
-            echo $(exif $filename | grep "^Unit" | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            unit="$(exif $filename | grep '^Unit' | tail -1 | cut -d "|" -f2 | tr -d ' ')"
+            if [ "$unit"="pouces" ]
+		then
+			echo 1
+		else
+			echo 2
+		fi
             ;;
         "date")
-            echo $(exif $filename | grep "^Date et heure " | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            date="$(exif $filename | grep '^Date et heure ' | tail -1 | cut -d "|" -f2 | tr -d ' ' | head -c 10)"
+            if [ -z "$date" ]
+	    then
+	    	echo 1111:11:11
+	    else
+	    	echo $date
+	    fi
             ;;
         "largeur")
-            echo $(exif $filename | grep "^Largeur" | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            result=$(exif $filename | grep '^Hauteur' | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            if [ -z $result ]
+            then
+                echo -1
+            else 
+            	echo $result
+            fi
             ;;
         "longueur")
-            echo $(exif $filename | grep "^Longueur" | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            result=$(exif $filename | grep '^Longeur' | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            if [ -z $result ]
+            then
+                echo -1
+            else 
+            	echo $result
+            fi
             ;;
         "compression")
-            echo $(exif $filename | grep "^Compression" | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            compr="$(exif $filename | grep '^Compression' | tail -1 | cut -d "|" -f2 | tr -d ' ')"
+            if [ "$compr"="Compression JPEG" ]
+            then
+                echo 1
+            else
+                echo 2
+            fi
             ;;
         "echantillon")
-            echo $(exif $filename | grep "^'Echantillons" | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            result=$(exif $filename | grep '^Échantillons' | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            if [ -z $result ]
+            then
+                echo -1
+            else 
+            	echo $result
+            fi
             ;;
         "desc")
-            echo $(exif $filename | grep "^Description" | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            result=$(exif $filename | grep '^Description' | tail -1 | cut -d "|" -f2 | tr -d ' ')
+            echo $result
             ;;
         *)
             echo "le $i paramètre n'existe pas"
