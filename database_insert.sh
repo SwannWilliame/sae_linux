@@ -11,7 +11,6 @@ do
 			file_ref="$doss/$file"
 			galaxie_id="$(echo $doss | cut -d/ -f3)"
 			categorie="$(echo $doss | cut -d/ -f2)"
-			unit_id=get
 			if [ "$categorie" = "Others" ]
 			then
 				categorie_id=2
